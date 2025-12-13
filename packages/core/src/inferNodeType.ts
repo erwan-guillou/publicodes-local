@@ -177,6 +177,7 @@ export default function inferNodesTypes(
 			case "début d'année":
 			case "fin d'année":
 			case "suivant":
+			case "précédent":
 				return { isNullable: false, type: 'date' }
 		}
 	}

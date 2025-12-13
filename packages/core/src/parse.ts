@@ -47,6 +47,7 @@ import finDuMois from './mecanisms/fin-du-mois'
 import débutDAnnée from './mecanisms/debut-d-annee'
 import finDAnnée from './mecanisms/fin-d-annee'
 import suivant from './mecanisms/suivant'
+import précédent from './mecanisms/precedent'
 
 export default function parse(rawNode, context: Context): ASTNode {
 	if (rawNode == undefined) {
@@ -225,6 +226,7 @@ const parseFunctions = {
 	"début d'année": débutDAnnée,
 	"fin d'année": finDAnnée,
 	"suivant": suivant,
+	"précédent": précédent,
 }
 
 export const mecanismKeys = Object.keys(parseFunctions)

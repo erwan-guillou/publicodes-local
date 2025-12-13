@@ -7,6 +7,7 @@ export default function MecanismCalendrier(node: EvaluatedNode<
 	| "début d'année"
 	| "fin d'année"
 	| "suivant"
+	| "précédent"
 >) {
 	return (
 		<DefaultInlineMecanism

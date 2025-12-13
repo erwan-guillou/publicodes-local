@@ -180,6 +180,7 @@ export const traverseASTNode: TraverseFunction<NodeKind> = (fn, node) => {
 		case "début d'année":
 		case "fin d'année":
 		case "suivant":
+		case "précédent":
 			return traverseCalendrier(fn, node);
 		default:
 			throw new UnreachableCaseError(node)
@@ -416,6 +417,7 @@ const traverseCalendrier: TraverseFunction<
 	| "début d'année"
 	| "fin d'année"
 	| "suivant"
+	| "précédent"
 > = (fn, node) => {
 	const copy = weakCopyObj(node)
 
