@@ -1,5 +1,5 @@
 
-import { EvaluationFunction } from '..'
+import { EvaluationFunction, PublicodesError } from '..'
 import { ASTNode, Unit } from '../AST/types'
 import {
 	convertToDate,
@@ -45,8 +45,16 @@ const evaluate: EvaluationFunction<'nombre de jours'> = function (node) {
 		nodeValue = countWeekday(convertToDate(from),convertToDate(to), 6)
 	else if (ref === "dimanche")
 		nodeValue = countWeekday(convertToDate(from),convertToDate(to), 0)
-	else
-		nodeValue = 0
+	else {
+			throw new PublicodesError(
+				'SyntaxError',
+				`Seules les références suivantes sont acceptées pour le calcul : ${possibleReférences.join(
+					', ',
+				)}.
+				L'unité fournie est: ${ref}`,
+				{ dottedName: '' }
+			)
+		}
 
 	return {
 		...node,
@@ -80,3 +88,13 @@ export default function parseNombreDeJours(v, context) {
 }
 
 parseNombreDeJours.nom = 'nombre de jours'
+
+const possibleReférences = [
+	'lundi',
+	'mardi',
+	'mercredi',
+	'jeudi',
+	'vendredi',
+	'samedi',
+	'dimanche',
+] as const

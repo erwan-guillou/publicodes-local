@@ -26,6 +26,7 @@ import { DébutDuMoisNode } from '../mecanisms/debut-du-mois'
 import { FinDuMoisNode } from '../mecanisms/fin-du-mois'
 import { DébutDAnnéeNode } from '../mecanisms/debut-d-annee'
 import { FinDAnnéeNode } from '../mecanisms/fin-d-annee'
+import { SuivantNode } from '../mecanisms/suivant'
 
 export type ConstantNode = {
 	nodeKind: 'constant'
@@ -69,6 +70,7 @@ type PossibleNodes =
 	| FinDuMoisNode
 	| DébutDAnnéeNode
 	| FinDAnnéeNode
+	| SuivantNode
 
 /**@hidden */
 export type NodeKind = PossibleNodes['nodeKind']
