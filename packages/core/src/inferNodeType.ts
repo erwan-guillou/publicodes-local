@@ -164,6 +164,7 @@ export default function inferNodesTypes(
 			case 'reference':
 				return inferNodeUnitAndCache(parsedRules[node.dottedName as string])
 			case "nombre de jours":
+			case "nombre de jours fériés":
 				return { isNullable: false, type: 'number' }
 		}
 	}

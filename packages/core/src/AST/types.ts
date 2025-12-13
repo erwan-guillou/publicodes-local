@@ -21,6 +21,7 @@ import { ReferenceNode } from '../parseReference'
 import { ReplacementRule } from '../parseReplacement'
 import { Rule, RuleNode } from '../rule'
 import { NombreDeJoursNode } from '../mecanisms/nombre-de-jours'
+import { NombreDeJoursFériésNode } from '../mecanisms/nombre-de-jours-feries'
 
 export type ConstantNode = {
 	nodeKind: 'constant'
@@ -59,6 +60,7 @@ type PossibleNodes =
 	| VariationNode
 	| LogarithmeNode
 	| NombreDeJoursNode
+	| NombreDeJoursFériésNode
 
 /**@hidden */
 export type NodeKind = PossibleNodes['nodeKind']

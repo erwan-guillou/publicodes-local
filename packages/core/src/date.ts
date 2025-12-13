@@ -145,3 +145,78 @@ export function countWeekday(start: Date, end: Date, weekday: number): number {
 
 	return Math.floor((e.getTime() - s.getTime()) / oneWeek) + 1;
 }
+
+export function dateOfEaster(year: number): string {
+	const a = year % 19;
+	const b = Math.floor(year / 100);
+	const c = year % 100;
+	const d = Math.floor(b / 4);
+	const e = b % 4;
+	const f = Math.floor((b + 8) / 25);
+	const g = Math.floor((b - f + 1) / 3);
+	const h = (19 * a + b - d - g + 15) % 30;
+	const i = Math.floor(c / 4);
+	const k = c % 4;
+	const l = (32 + 2 * e + 2 * i - h - k) % 7;
+	const m = Math.floor((a + 11 * h + 22 * l) / 451);
+	const month = Math.floor((h + l - 7 * m + 114) / 31);   // 3 = mars, 4 = avril
+	const day = ((h + l - 7 * m + 114) % 31) + 1;
+
+	return normalizeDate(year, month, day);
+}
+
+export function datesJoursFeriesForYear(annee: number, alsace: boolean = false): string[] {
+	const res: string[] = [];
+
+	// --- Jours fixes ---
+	res.push(normalizeDate(annee, 1, 1));    // Jour de l'an
+	res.push(normalizeDate(annee, 5, 1));    // Fête du Travail
+	res.push(normalizeDate(annee, 5, 8));    // Victoire 1945
+	res.push(normalizeDate(annee, 7, 14));   // Fête Nationale
+	res.push(normalizeDate(annee, 8, 15));   // Assomption
+	res.push(normalizeDate(annee, 11, 1));   // Toussaint
+	res.push(normalizeDate(annee, 11, 11));  // Armistice
+	res.push(normalizeDate(annee, 12, 25));  // Noël
+
+	// --- Jours dépendants de Pâques ---
+	const paques = dateOfEaster(annee);
+
+	res.push(paques);   // Dimanche de Pâques
+	res.push(getRelativeDate(paques, 1));   // Lundi de Pâques
+	res.push(getRelativeDate(paques, 39));  // Ascension
+	res.push(getRelativeDate(paques, 49));  // Dimanche de Pentecôte
+	res.push(getRelativeDate(paques, 50));  // Lundi de Pentecôte
+	if (alsace)
+	{
+		res.push(getRelativeDate(paques, -3));  // Vendredi saint
+		res.push(normalizeDate(annee, 12, 26));  // Saint Etienne
+	}
+
+	return res;
+}
+
+export function howManyJoursFeriesInTimePeriod(d1: Date, d2: Date, repos: boolean = false, alsace: boolean = false): number {
+	const start = d1
+	const end = d2
+
+	let jf: string[] = []
+	for (let year = start.getFullYear() ; year <= end.getFullYear() ; year += 1)
+	  jf = jf.concat(datesJoursFeriesForYear(year,alsace))
+
+	let count = 0
+	for (const d of jf) {
+		const jsDate = convertToDate(d)
+		const inPeriod = jsDate >= start && jsDate <= end
+		const isRepos = [0, 6].includes(jsDate.getDay())
+
+		if (inPeriod) {
+			if (repos)
+			{
+				if (!isRepos) count ++
+			}
+			else count++
+		}
+	}
+
+	return count
+}

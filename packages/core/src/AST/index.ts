@@ -173,6 +173,8 @@ export const traverseASTNode: TraverseFunction<NodeKind> = (fn, node) => {
 			return traverseConditionNode(fn, node)
 		case "nombre de jours":
 			return traverseNombreDeJoursNode(fn, node)
+		case "nombre de jours fériés":
+			return traverseNombreDeJoursFériésNode(fn, node)
 
 		default:
 			throw new UnreachableCaseError(node)
@@ -387,6 +389,18 @@ const traverseNombreDeJoursNode: TraverseFunction<'nombre de jours'> = (fn, node
 		depuis: fn(node.explanation.depuis),
 		"jusqu'à": fn(node.explanation["jusqu'à"]),
 		"référence": fn(node.explanation["référence"]),
+	}
+	return copy
+}
+
+const traverseNombreDeJoursFériésNode: TraverseFunction<'nombre de jours fériés'> = (fn, node) => {
+	const copy = weakCopyObj(node)
+
+	copy.explanation = {
+		depuis: fn(node.explanation.depuis),
+		"jusqu'à": fn(node.explanation["jusqu'à"]),
+		"ignore repos": fn(node.explanation["ignore repos"]),
+		"alsace moselle": fn(node.explanation["alsace moselle"]),
 	}
 	return copy
 }

@@ -57,6 +57,7 @@ const evaluate: EvaluationFunction<'nombre de jours'> = function (node) {
 			"jusqu'à": toNode,
 			"référence": refNode
 		},
+		unit: { numerators: ['jour'], denominators: [] },
 	}
 }
 
