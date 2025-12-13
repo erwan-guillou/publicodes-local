@@ -185,7 +185,7 @@ const evaluate: EvaluationFunction<'operation'> = function (node) {
 		const da = convertToDate(a)
 		const db = convertToDate(b)
 		const debut = new Date(db.getFullYear(), db.getMonth(), db.getDate());
-		const fin = new Date(da.getFullYear(), da.getMonth(), db.getDate());
+		const fin = new Date(da.getFullYear(), da.getMonth(), da.getDate());
 
 		const diffMs = fin.getTime() - debut.getTime();
 		const diffJours = diffMs / (1000 * 60 * 60 * 24);
