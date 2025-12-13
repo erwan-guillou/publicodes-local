@@ -24,6 +24,7 @@ import Variations from './mecanisms/Variations'
 import DefaultInlineMecanism from './mecanisms/common/DefaultInlineMecanism'
 import UnePossibilité from './mecanisms/UnePossibilité'
 import Logarithme from './mecanisms/Logarithme'
+import NombreDeJours from './mecanisms/NombreDeJours'
 
 const UIComponents = {
 	constant: Constant,
@@ -52,6 +53,7 @@ const UIComponents = {
 	variations: Variations,
 	logarithme: Logarithme,
 	'une possibilité': UnePossibilité,
+	'nombre de jours': NombreDeJours,
 } as const
 
 /**

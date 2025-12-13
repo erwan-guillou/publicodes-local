@@ -40,6 +40,7 @@ import { parseExpression } from './parseExpression'
 import { Context } from './parsePublicodes'
 import parseReference from './parseReference'
 import { parseUnit } from './units'
+import nombreDeJours from './mecanisms/nombre-de-jours'
 
 export default function parse(rawNode, context: Context): ASTNode {
 	if (rawNode == undefined) {
@@ -211,6 +212,7 @@ const parseFunctions = {
 				{ unit: parseUnit(v.rawUnit, context.getUnitKey) }
 			:	{}),
 		}),
+	"nombre de jours": nombreDeJours,
 }
 
 export const mecanismKeys = Object.keys(parseFunctions)

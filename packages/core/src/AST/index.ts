@@ -171,6 +171,8 @@ export const traverseASTNode: TraverseFunction<NodeKind> = (fn, node) => {
 			return traverseTextNode(fn, node)
 		case 'condition':
 			return traverseConditionNode(fn, node)
+		case "nombre de jours":
+			return traverseNombreDeJoursNode(fn, node)
 
 		default:
 			throw new UnreachableCaseError(node)
@@ -375,5 +377,16 @@ const traverseUnePossibilitéNode: TraverseFunction<'une possibilité'> = (
 		return copy
 	})
 
+	return copy
+}
+
+const traverseNombreDeJoursNode: TraverseFunction<'nombre de jours'> = (fn, node) => {
+	const copy = weakCopyObj(node)
+
+	copy.explanation = {
+		depuis: fn(node.explanation.depuis),
+		"jusqu'à": fn(node.explanation["jusqu'à"]),
+		"référence": fn(node.explanation["référence"]),
+	}
 	return copy
 }

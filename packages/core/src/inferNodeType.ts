@@ -163,6 +163,8 @@ export default function inferNodesTypes(
 
 			case 'reference':
 				return inferNodeUnitAndCache(parsedRules[node.dottedName as string])
+			case "nombre de jours":
+				return { isNullable: false, type: 'number' }
 		}
 	}
 

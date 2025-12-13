@@ -127,3 +127,21 @@ export function getDifferenceInYearsCivil(from: string, to: string): number {
 	const toYear = '01/' + getYear(to)
 	return Math.floor(getDifferenceInYears(fromYear, toYear)) + 1
 }
+
+export function countWeekday(start: Date, end: Date, weekday: number): number {
+	// Normalize to start-of-day : do not take into account hour
+	const s = new Date(start.getFullYear(), start.getMonth(), start.getDate());
+	const e = new Date(end.getFullYear(), end.getMonth(), end.getDate());
+
+	// Find first matching weekday on or after start date
+	const delta = (weekday - s.getDay() + 7) % 7;
+	s.setDate(s.getDate() + delta);
+
+	// If first occurrence is past end, no matches
+	if (s > e) return 0;
+
+	// Count by jumping in 7-day increments
+	const oneWeek = 7 * 24 * 60 * 60 * 1000;
+
+	return Math.floor((e.getTime() - s.getTime()) / oneWeek) + 1;
+}
