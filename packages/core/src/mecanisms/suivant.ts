@@ -23,7 +23,11 @@ const evaluate: EvaluationFunction<'suivant'> = function (node) {
 				&& nodeValue.match?.(/^[\d]{2}\/[\d]{2}\/[\d]{4}$/))
 		{
 			if (valeur.unit === undefined)
-			{}
+			{
+				const date = convertToDate(nodeValue)
+				const date2 = new Date(date.getFullYear(), date.getMonth(), date.getDate()+1)
+				nodeValue = convertToString(date2)
+			}
 			else if (valeur.unit.numerators.includes('jour'))
 			{
 				const date = convertToDate(nodeValue)
@@ -33,13 +37,13 @@ const evaluate: EvaluationFunction<'suivant'> = function (node) {
 			else if (valeur.unit.numerators.includes('mois'))
 			{
 				const date = convertToDate(nodeValue)
-				const date2 = new Date(date.getFullYear(), date.getMonth()+1, date.getDate())
+				const date2 = new Date(date.getFullYear(), date.getMonth()+1, 1)
 				nodeValue = convertToString(date2)
 			}
 			else if (valeur.unit.numerators.includes('an'))
 			{
 				const date = convertToDate(nodeValue)
-				const date2 = new Date(date.getFullYear()+1, date.getMonth(), date.getDate())
+				const date2 = new Date(date.getFullYear()+1, 0, 1)
 				nodeValue = convertToString(date2)
 			}
 		}
