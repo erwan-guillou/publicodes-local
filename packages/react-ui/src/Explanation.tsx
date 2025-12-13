@@ -59,6 +59,7 @@ const UIComponents = {
 	'nombre de jours fériés': NombreDeJoursFériés,
 	'début du mois': Calendrier,
 	'fin du mois': Calendrier,
+	"début d'année": Calendrier,
 } as const
 
 /**

@@ -24,7 +24,8 @@ const evaluate: EvaluationFunction<'début du mois'> = function (node) {
 				&& nodeValue.match?.(/^[\d]{2}\/[\d]{2}\/[\d]{4}$/))
 		{
 			const date = convertToDate(nodeValue)
-			nodeValue = normalizeDate(date.getFullYear(), date.getMonth()+1, 1)
+			const date2 = new Date(date.getFullYear(), date.getMonth(), 1)
+			nodeValue = convertToString(date2)
 		}
 		else
 		{
