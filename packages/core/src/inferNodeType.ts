@@ -67,7 +67,13 @@ export default function inferNodesTypes(
 							)
 						) ?
 							'boolean'
-						:	'number',
+						:	['+', '+'].includes(node.operationKind) &&
+							inferNodeUnitAndCache(node.explanation[0]).type === 'date' &&
+							inferNodeUnitAndCache(node.explanation[0]).type === 'number'
+							?
+								'date'
+							:
+								'number',
 				}
 
 			case 'replacementRule':

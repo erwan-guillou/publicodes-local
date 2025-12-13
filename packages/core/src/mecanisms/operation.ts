@@ -159,6 +159,9 @@ const evaluate: EvaluationFunction<'operation'> = function (node) {
 			['jour', 'mois', 'an'].includes(node2.unit.numerators[0])
 		)
 	) {
+		console.log(node1)
+		console.log(node2)
+		console.log(node)
 		const multiplier = node.operationKind === '-' ? -1 : 1;
 		if (node2.unit.numerators.includes('jour')) {
 			evaluatedNode.nodeValue = getRelativeDate(a,multiplier * b)
