@@ -3,8 +3,7 @@ import { EvaluationFunction } from '..'
 import { ASTNode } from '../AST/types'
 import {
 	convertToDate,
-	convertToString,
-	normalizeDate
+	convertToString
 } from '../date'
 import { registerEvaluationFunction } from '../evaluationFunctions'
 import { defaultNode } from '../evaluationUtils'
