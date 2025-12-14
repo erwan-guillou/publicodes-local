@@ -10,8 +10,6 @@ export type ArrondiNode = {
 	explanation: {
 		arrondi: ASTNode
 		valeur: ASTNode
-		inférieur: ASTNode
-		supérieur: ASTNode
 	}
 	nodeKind: 'arrondi'
 }
@@ -29,8 +27,6 @@ const evaluate: EvaluationFunction<'arrondi'> = function (node) {
 	const valeur = simplifyNodeUnit(this.evaluateNode(node.explanation.valeur))
 	const nodeValue = valeur.nodeValue
 	let arrondi = node.explanation.arrondi
-	let inférieur = node.explanation.inférieur
-	let supérieur = node.explanation.supérieur
 	if (nodeValue !== false) {
 		arrondi = this.evaluateNode(arrondi)
 
@@ -58,7 +54,7 @@ const evaluate: EvaluationFunction<'arrondi'> = function (node) {
 			: arrondi.nodeValue === true ? roundWithPrecision(valeur.nodeValue, 0)
 			: arrondi.nodeValue === undefined ? undefined
 			: valeur.nodeValue,
-		explanation: { valeur, arrondi,inférieur, supérieur },
+		explanation: { valeur, arrondi },
 		missingVariables: mergeAllMissing([valeur, arrondi]),
 		unit: valeur.unit,
 	}
@@ -67,9 +63,7 @@ const evaluate: EvaluationFunction<'arrondi'> = function (node) {
 export default function parseArrondi(v, context) {
 	const explanation = {
 		valeur: parse(v.valeur, context),
-		arrondi: parse(v.arrondi, context),
-		inférieur: parse(v.inférieur ?? 'non', context),
-		supérieur: parse(v.supérieur ?? 'non', context)
+		arrondi: parse(v.arrondi, context)
 	}
 	return {
 		explanation,
