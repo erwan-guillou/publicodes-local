@@ -49,6 +49,7 @@ import finDAnnée from './mecanisms/fin-d-annee'
 import suivant from './mecanisms/suivant'
 import précédent from './mecanisms/precedent'
 import inférieur from './mecanisms/inferieur'
+import supérieur from './mecanisms/supérieur'
 
 export default function parse(rawNode, context: Context): ASTNode {
 	if (rawNode == undefined) {
@@ -153,6 +154,7 @@ const chainableMecanisms = [
 	nonApplicable,
 	arrondi,
 	inférieur,
+	supérieur,
 	unité,
 	simplifierUnité,
 	plancher,

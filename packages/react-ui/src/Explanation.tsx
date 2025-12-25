@@ -28,6 +28,7 @@ import NombreDeJours from './mecanisms/NombreDeJours'
 import NombreDeJoursFériés from './mecanisms/NombreDeJoursFériés'
 import Calendrier from './mecanisms/Calendrier'
 import Inférieur from './mecanisms/Inférieur'
+import Supérieur from './mecanisms/Supérieur'
 
 const UIComponents = {
 	constant: Constant,
@@ -65,6 +66,7 @@ const UIComponents = {
 	"suivant": Calendrier,
 	"précédent": Calendrier,
 	"inférieur": Inférieur,
+	"supérieur": Supérieur,
 } as const
 
 /**

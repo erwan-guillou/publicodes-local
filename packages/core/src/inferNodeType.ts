@@ -180,6 +180,7 @@ export default function inferNodesTypes(
 			case "précédent":
 				return { isNullable: false, type: 'date' }
 			case 'inférieur':
+			case 'supérieur':
 				return {
 					type: 'number',
 					isNullable: inferNodeUnitAndCache(node.explanation.valeur).isNullable,
