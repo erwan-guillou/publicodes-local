@@ -47,12 +47,16 @@ export function getRelativeDate(date: string, dayDifferential: number): string {
 export function getRelativeDateMonth(date: string, monthDifferential: number): string {
 	const relativeDate = new Date(convertToDate(date))
 	const finalDate = new Date(relativeDate.getFullYear(), relativeDate.getMonth() + monthDifferential, relativeDate.getDate())
+	if ((finalDate.getMonth() - relativeDate.getMonth()) > monthDifferential)
+		finalDate.setDate(0);
 	return convertToString(finalDate)
 }
 
 export function getRelativeDateYear(date: string, yearDifferential: number): string {
 	const relativeDate = new Date(convertToDate(date))
 	const finalDate = new Date(relativeDate.getFullYear() + yearDifferential, relativeDate.getMonth(), relativeDate.getDate())
+	if (finalDate.getMonth() != relativeDate.getMonth())
+		finalDate.setDate(0);
 	return convertToString(finalDate)
 }
 
