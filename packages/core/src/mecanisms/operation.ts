@@ -172,6 +172,30 @@ const evaluate: EvaluationFunction<'operation'> = function (node) {
 		return evaluatedNode
 	}
 	if (
+		['+'].includes(node.operationKind) &&
+		( // right operand is a date
+			typeof b === 'string' &&
+			b.match?.(/^[\d]{2}\/[\d]{2}\/[\d]{4}$/)
+		) &&
+		( // left operand is a step in day/month/year
+			typeof a === 'number' &&
+			Number.isInteger(a) &&
+			node1.unit !== undefined &&
+			['jour', 'mois', 'an'].includes(node1.unit.numerators[0])
+		)
+	) {
+		if (node1.unit.numerators.includes('jour')) {
+			evaluatedNode.nodeValue = getRelativeDate(b, a)
+		}
+		else if (node1.unit.numerators.includes('mois')) {
+			evaluatedNode.nodeValue = getRelativeDateMonth(b, a)
+		}
+		else if (node1.unit.numerators.includes('an')) {
+			evaluatedNode.nodeValue = getRelativeDateYear(b, a)
+		}
+		return evaluatedNode
+	}
+	if (
 		['-'].includes(node.operationKind) &&
 		( // left operand is a date
 			typeof a === 'string' &&

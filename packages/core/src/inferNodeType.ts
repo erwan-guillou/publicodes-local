@@ -67,11 +67,21 @@ export default function inferNodesTypes(
 							)
 						) ?
 							'boolean'
-						:	['+', '+'].includes(node.operationKind) &&
+						:	['+', '-'].includes(node.operationKind) &&
 							inferNodeUnitAndCache(node.explanation[0]).type === 'date' &&
 							inferNodeUnitAndCache(node.explanation[0]).type === 'number'
 							?
 								'date'
+						:	['+'].includes(node.operationKind) &&
+							inferNodeUnitAndCache(node.explanation[0]).type === 'number' &&
+							inferNodeUnitAndCache(node.explanation[0]).type === 'date'
+							?
+								'date'
+						:	['-'].includes(node.operationKind) &&
+							inferNodeUnitAndCache(node.explanation[0]).type === 'date' &&
+							inferNodeUnitAndCache(node.explanation[0]).type === 'date'
+							?
+								'number'
 							:
 								'number',
 				}
